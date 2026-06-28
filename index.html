@@ -5,74 +5,33 @@
 			BombDotCom
 		</title>
 		<style>
-			body {
-				background-image: linear-gradient(to right, #1616f0, #feb47b);
-				font-family: "Montserrat";
-			}
 			h1 {
 				font-size: 50px;
 			}
 			#title {
 				text-align: center;
 			}
-			.top-bar {
-				position: fixed;
-				top:0;
-				left:0;
-				width: 100%;
-				height: 80px;
-				background-color: #0b0b6b;
-				color: white;
-				display: flex;
-				align-items: center;
-				justify-content: space-between;
-				padding: 20px;
-				box-sizing: border-box;
-			}
-			.logo {
-            font-weight: bold;
-            font-size: 35px;
-			font-family: "Dancing Script";
-			}
-		
-			.nav-links a {
-				color: white;
-				text-decoration: none;
-				margin-left: 40px;
-				font-size: 15pt;
-			}
-
-			.nav-links a:hover {
-				text-decoration: underline;
-			}
-			.main-content {
-				margin-top: 50px;
-				padding: 5px;
-			}
-			.mid-text {
-				text-align: center;
-			}
-			.bigwarning {
-				color: red;
-				text-align: center;
-				font-weight: bold;
-				font-family: "Courier New";
-				-webkit-text-stroke: 1px black; /* Stroke thickness and color */
-			}
 		</style>
 		<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+		<link href="style.css" rel="stylesheet">
 	</head>
 	<body>
 		<div class="top-bar">
-			<div class="logo">the site of bomb</div>
+			<div class="logo"><a href="./index.html">the site of bomb</a></div>
 			<div class="nav-links">
-				<a href="#">Home</a>
+				<a href="./index.html">Home</a>
 				<a href="#">Blog</a>
 				<a href="#">Portfolio</a>
 			</div>
 		</div>
+		
 		<div class="main-content">
 			<h1 class="mid-text">I'm working on ts come back later.</h1>
+			<img class="mid-image" src="images/worker.jpg" width="35%" alt="construction worker stock image go brrr">
 			<h2 class="bigwarning">The Blog and Portfolio pages are currently closed for construction.</h2>
 		</div>
+		
+		<footer class="copyright-bar">
+			<p>&copy; 2026 me :]. All Rights Reserved.</p>
+		</footer>
 	</body>
