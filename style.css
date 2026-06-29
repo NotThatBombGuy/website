@@ -1,8 +1,25 @@
-body {
+* {
+	box-sizing: border-box;
+  }
+  
+  html,
+  body {
+	margin: 0;
+	padding: 0;
+  }
+  
+  html {
+	min-height: 100%;
+	background-color: #feb47b; /* bottom color of your gradient */
+  }
+  
+  body {
 	background-image: linear-gradient(180deg, #1616f0, #feb47b);
+	background-repeat: no-repeat;
 	min-height: 100vh;
+	min-height: 100dvh; /* better on mobile — see below */
 	font-family: "Montserrat";
-}
+  }
 .top-bar {
 	position: fixed;
 	top:0;
@@ -18,14 +35,22 @@ body {
 	box-sizing: border-box;
 }
 .logo {
-    font-weight: bold;
-    font-size: 35px;
+	font-weight: bold;
+	font-size: 35px;
 	font-family: "Dancing Script";
-}
-.logo a {
+	flex: 0 0 45%;        /* logo always gets ~45% of the top bar */
+	max-width: 45%;
+	min-width: 0;         /* lets flex children shrink (easy to forget!) */
+	overflow: hidden;
 	color: white;
+  }
+  
+  .logo a {
+	display: block;
+	white-space: nowrap;  /* one line — text shrinks instead of wrapping */
 	text-decoration: none;
-}
+	color: white;
+  }
 .nav-links a {
 	color: white;
 	text-decoration: none;
@@ -36,10 +61,19 @@ body {
 .nav-links a:hover {
 	text-decoration: underline;
 }
-.main-content {
-	margin-top: 50px;
+body {
+	display: flex;
+	flex-direction: column;
+	min-height: 100vh;
+	min-height: 100dvh;
+	/* keep your gradient here */
+  }
+  
+  .main-content {
+	flex: 1;           /* grows to fill space above footer */
+	margin-top: 80px;  /* room for fixed nav — tune to your .top-bar height */
 	padding-top: 5px;
-}
+  }
 .mid-text {
 	text-align: center;
 }
@@ -57,12 +91,64 @@ body {
 }
 .copyright-bar {
 	display: flex;
-	margin: auto;
 	justify-content: center;
+	align-items: center;
 	background-color: #333;
 	color: #fff;
-	text-align: center;
 	width: 100%;
-	height: 50px;
-	bottom: 0;
+	min-height: 50px;   /* min-height instead of fixed height */
+	padding: 12px 16px;
+  }
+  
+  .copyright-bar p {
+	margin: 0;          /* removes default <p> spacing */
+  }
+.title-text {
+	text-wrap: balance;
 }
+
+@media (max-width: 768px) {
+	.top-bar {
+	  height: auto;
+	  min-height: 60px;
+	  padding: 12px 16px;
+	  flex-wrap: wrap;
+	  gap: 8px;
+	}
+  
+	.logo {
+	  flex: 1 1 100%;      /* logo full width on its own row */
+	  max-width: 100%;
+	  font-size: 28px;
+	}
+  
+	.nav-links {
+	  flex: 1 1 100%;
+	  display: flex;
+	  justify-content: center;
+	  gap: 16px;
+	}
+  
+	.nav-links a {
+	  margin-left: 0;      /* remove desktop side spacing */
+	  font-size: 14pt;
+	}
+  
+	.main-content {
+	  margin-top: 100px;   /* more room if nav wraps to 2 rows */
+	  padding: 0 16px;
+	}
+  
+	h1 {
+	  font-size: 28px !important;  /* overrides inline <style> in HTML */
+	}
+  
+	.mid-image {
+	  width: 90%;
+	}
+  
+	.bigwarning {
+	  font-size: 0.9rem;
+	  padding: 0 8px;
+	}
+  }
