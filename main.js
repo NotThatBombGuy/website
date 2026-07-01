@@ -44,3 +44,5 @@ const messages = [
         parseFloat(linkElement.style.fontSize) - 1 + "px";
     }
   }
+
+  fitLogoText()
