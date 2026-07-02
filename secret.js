@@ -27,18 +27,30 @@ function spawnEcho() {
 
 setInterval(spawnEcho, 120);
 
+// CODE STUF NOW
+
 const codes = {
     melvin: function () {
       showMelvin();
     },
   
-    rainbow: function () {
-      document.body.style.background =
-        "linear-gradient(45deg, red, orange, yellow, green, blue, purple)";
+    "shutupshawn!": function () {
+      showPsych();
     },
   
-    home: function () {
-      window.location.href = "./index.html";
+    weird: function () {
+      const weirdsound = new Audio('audio/weird.mp3');
+
+      weirdsound.play()
+    },
+
+    doobmare: function () {
+      showDoob();
+      let doobrandom = Math.floor(Math.random() * 5) + 1;
+
+      let doobsound = new Audio('audio/doob_' + doobrandom + '.mp3');
+
+      doobsound.play()
     }
   };
 
@@ -53,10 +65,15 @@ const form = document.querySelector("#code-form");
   
     if (codes[typed]) {
       codes[typed]();           // run the matching action
-      message.textContent = "";
+      message.textContent = "[Accepted]";
       input.value = "";         // clear input
+      input.placeholder = "[Registered]";
+      input.disabled = true;
     } else {
-      message.textContent = "...";
+      message.textContent = "[Denied]";
+      input.value = "";         // clear input
+      input.placeholder = "[Registered]";
+      input.disabled = true;
     }
   });
 
@@ -66,11 +83,48 @@ const form = document.querySelector("#code-form");
     if (!melvin) {
       melvin = document.createElement("img");
       melvin.id = "melvin";
-      melvin.src = "images/melvin.png";  // your image path
+      melvin.src = "images/melvin.webp";  // your image path
       melvin.alt = "Melvin Sneedly";
       melvin.className = "melvin-popup";
       document.body.appendChild(melvin);
+      text = document.createElement("p");
+      text.textContent = "the sneedification has begun";
+      text.className = "melvin-text";
+      text.style.textAlign = "center";
+      text.style.fontSize = "20pt";
+      text.style.color = "white";
+      document.body.appendChild(text);
     }
   
     melvin.style.display = "block";
+  }
+
+  function showPsych() {
+    let psych = document.querySelector("#psych");
+  
+    if (!psych) {
+      psych = document.createElement("img");
+      psych.id = "psych";
+      psych.src = "images/pineapple.webp";  // your image path
+      psych.alt = "Pineapple";
+      psych.className = "psych-popup";
+      document.body.appendChild(psych);
+    }
+  
+    psych.style.display = "block";
+  }
+
+  function showDoob() {
+    let doob = document.querySelector("#doob");
+  
+    if (!doob) {
+      doob = document.createElement("img");
+      doob.id = "doob";
+      doob.src = "images/mare.png";  // your image path
+      doob.alt = "doobmare";
+      doob.className = "doob-popup";
+      document.body.appendChild(doob);
+    }
+  
+    doob.style.display = "block";
   }

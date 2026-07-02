@@ -8,7 +8,7 @@ if (hour < 12) {
 } else if (hour < 18) {
   heading.textContent = "Good afternoon - I'm probably being lazy and not working on this.";
 } else {
-  heading.textContent = "Good evening - I might be working on ts but I'm probably not.";
+  heading.textContent = "Good evening - I'm actually prob working on this.";
 }
 
 // changes logo text to a random message when clicked
