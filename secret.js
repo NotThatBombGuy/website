@@ -27,7 +27,7 @@ function spawnEcho() {
 
 setInterval(spawnEcho, 120);
 
-// CODE STUF NOW
+// SECRET CODE STUF NOW
 
 const codes = {
     melvin: function () {
@@ -51,7 +51,20 @@ const codes = {
       let doobsound = new Audio('audio/doob_' + doobrandom + '.mp3');
 
       doobsound.play()
-    }
+    },
+
+    annoyingdog: function () {
+      annoyingDog();
+    },
+
+    cat: function () {
+      cat();
+      let catrandomcat = Math.floor(Math.random() * 4) + 1;
+
+      let catsound = new Audio('audio/Cat_idle' + catrandomcat + '.ogg.mp3');
+
+      catsound.play()
+    },
   };
 
 const form = document.querySelector("#code-form");
@@ -72,8 +85,6 @@ const form = document.querySelector("#code-form");
     } else {
       message.textContent = "[Denied]";
       input.value = "";         // clear input
-      input.placeholder = "[Registered]";
-      input.disabled = true;
     }
   });
 
@@ -128,3 +139,73 @@ const form = document.querySelector("#code-form");
   
     doob.style.display = "block";
   }
+
+  function annoyingDog() {
+    console.log("Dog called");
+
+    const kaboom = new Audio('audio/deltarune-explosion.mp3');
+    const drive = new Audio('audio/snd_drive.mp3');
+
+    let toby = document.querySelector("#toby");
+
+    if (!toby) {
+        toby = document.createElement("img");
+        toby.id = "toby";
+        toby.src = "images/toby.png";
+        toby.alt = "toby";
+        toby.className = "toby-popup";
+        document.body.appendChild(toby);
+    }
+
+    let flash = document.querySelector("#flash");
+    if (!flash) {
+        flash = document.createElement("img");
+        flash.id = "flash";
+        flash.src = "images/explo.gif";
+        document.body.appendChild(flash);
+    }
+
+    flash.style.display = "none";
+
+    // IMPORTANT: reset animation state
+    toby.classList.remove("move-center");
+
+    // FORCE browser to repaint before animation starts
+    void toby.offsetWidth;
+
+    toby.style.display = "block";
+    toby.classList.add("move-center");
+    drive.play()
+
+    toby.addEventListener("animationend", function () {
+        console.log("Animation finished!");
+        toby.style.display = "none";
+        flash.style.display = "block";
+        kaboom.play()
+        setTimeout(function () {
+          flash.style.display = "none";
+        }, 760);
+    }, { once: true });
+  }
+    function cat() {
+      let cat = document.querySelector("#cat");
+      const randomcat = [
+        "cat1.jpg",
+        "cat2.gif",
+        "cat3.webp",
+        "cat4.jpg",
+      ];
+      console.log("cat!");
+      const catrandom = randomcat[Math.floor(Math.random() * randomcat.length)];
+
+      if (!cat) {
+        cat = document.createElement("img");
+        cat.id = "cat";
+        cat.src = "images/" + catrandom;  // your image path
+        cat.alt = "cat";
+        cat.className = "cat-popup";
+        document.body.appendChild(cat);
+      }
+    
+      cat.style.display = "block";
+    }
