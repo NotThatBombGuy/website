@@ -1,0 +1,61 @@
+---
+import Layout from "../layouts/Layout.astro";
+import LinkCard from "../components/LinkCard.astro";
+---
+<Layout title="BombDotCom" showSecretLink={true}>
+	<h1 class="mid-text title-text">I'm working on ts come back later.</h1>
+	<h2 class="mid-text sub-heading">About Me</h2>
+	<div class="page-desc-container">
+		<p class="indent">Hello! I'm NotThatBombGuy, but I usually just go by Bomb. I was bored one day and decided that I wanted to make a website
+			about me instead of shoving everything into a Discord Bio. Some of my main hobbies include: </p>
+		<ul>
+			<li>Gaming</li>
+			<li>Programming</li>
+			<li>Art</li>
+			<li>Music</li>
+			<li>OneWheeling</li>
+			<li>Fishing</li>
+		</ul>
+		<p class="indent">I'm too lazy to finish this rn so I'll just leave it here.</p>
+	</div>
+
+	<div class="my-links-container">
+		<div class="my-links-title">
+			<h2>Games I Play</h2>
+			<p class="my-links-desc">Like I said before, I'm a huge gamer.<br> Here are a few of my favorite<br> games that I've played<br> over the years! (You can <br>click on the images to get a link<br> to the game.)</p>
+		</div>
+		<LinkCard title="Deltarune" href="https://deltarune.com" imgSrc="/images/deltarune.gif">
+			Deltarune is a RPG developed by Toby Fox... yeah I don't have to say much you probably already know about it. I've grown up with Toby's games, starting with Undertale
+			when I was just a wee little lad. His way of developing stories is simply amazing, and don't get me started on the music. If you haven't played this, <b>GO PLAY IT NOW</b>.
+		</LinkCard>
+		<LinkCard title="Eternal Towers of Hell" href="https://www.roblox.com/games/8562822414/Eternal-Towers-of-Hell" imgSrc="/images/Etohlogonew.webp">
+			EToH (Short for Eternal Towers of Hell) is a Tower-Styled obby game where you complete obbies of various difficulties without checkpoints. I've been playing this for
+			years, and even though it can be miserable to play sometimes, it has always stuck with me.
+		</LinkCard>
+		<LinkCard title="Subnautica" href="https://www.krafton.com/en/games/subnautica/#;" imgSrc="/images/subnautica.png">
+			Subnautica was the game that REALLY got me into gaming. It still holds up to today's standards, and it still stands as my favorite game out of the trilogy. The design
+			of the creatures and the environments are just top notch. Definitely a must-play.
+		</LinkCard>
+	</div>
+
+	<div class="my-links-container-2">
+		<div class="my-links-title">
+			<h2 class="text-left">Things I Develop</h2>
+			<p class="my-links-desc text-left">Here is where I unleash<br> my creativity! I work on many <br>different projects, and a few of<br> their links are listed here.</p>
+		</div>
+		<LinkCard title="Q_C0UNT's Towers of Oblivion" href="https://discord.gg/KeYhVhD67B" imgSrc="/images/qtoo.png">
+			This is a fangame of the game I listed before, EToH. It has been in developement for over a year now and should release in the near future (hopefully). If you are a fan
+			of EToH, you will love this game! And even if you don't play EToH, any support is appreciated.
+		</LinkCard>
+		<LinkCard title="Kitbash'd" href="https://discord.gg/NaYzbzDTNS" imgSrc="/images/kitbash.png">
+			While I don't <i>technically</i> develop Kitbash, I am currently an Alpha Tester and Contributor. I'm hoping to eventually join the dev team so I can support this
+			even further. Kitbash is a UGC platform being developed by a small team, but is quickly growing. <b>PLEASE</b> go and support it!
+		</LinkCard>
+		<LinkCard title="YouTube Channel" href="https://www.youtube.com/@notthatbombguy" imgSrc="/images/yt.jpg">
+			I've always been interested in Video Production, so here you can find my content! I mainly post about EToH and then I try to stream once a week to make up for
+			my horrific upload schedual. I'll also post trailers for games I develope or just random things that I feel like talking about.
+		</LinkCard>
+	</div>
+</Layout>
+
+<script is:inline src="/main.js"></script>

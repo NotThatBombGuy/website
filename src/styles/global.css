@@ -1,0 +1,487 @@
+:root {
+	/* colors */
+	--color-navy: #0b0b6b;
+	--color-blue: #1616f0;
+	--color-orange: #feb47b;
+	--color-white: #ffffff;
+	--color-panel: rgba(0, 0, 0, 0.1);
+	--color-panel-soft: rgba(0, 0, 0, 0.05);
+	--color-panel-strong: rgba(0, 0, 0, 0.5);
+
+	/* spacing scale (used for margin/padding/gap) */
+	--space-xs: 8px;
+	--space-sm: 16px;
+	--space-md: 24px;
+	--space-lg: 40px;
+
+	/* shape */
+	--radius: 12px;
+	--shadow-card: 0 4px 16px rgba(0, 0, 0, 0.25);
+	--shadow-card-hover: 0 10px 28px rgba(0, 0, 0, 0.35);
+
+	/* motion */
+	--transition-fast: 0.2s ease;
+	--transition-med: 0.4s ease;
+}
+
+.bg-shapes {
+	position: fixed;
+	inset: 0;              /* shorthand for top/right/bottom/left: 0 */
+	overflow: hidden;
+	z-index: 0;             /* behind .top-bar (100) and .main-content */
+	pointer-events: none;   /* clicks pass through to the real page */
+	perspective: 800px;     /* gives child rotations a sense of depth */
+}
+
+.bg-shape {
+	position: absolute;
+	background: rgba(0, 0, 0, 0.22);   /* solid black, no gradient */
+	top: var(--top);
+	left: var(--left);
+	width: var(--size);
+	height: var(--size);
+	animation:
+		glide var(--glide-duration, 45s) ease-in-out infinite,
+		spin var(--spin-duration, 50s) linear infinite;
+}
+
+/* shape type controls the silhouette — cycles triangle / square / circle */
+.bg-shape.shape-triangle {
+	clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+}
+.bg-shape.shape-square {
+	border-radius: 8px;
+}
+.bg-shape.shape-circle {
+	border-radius: 50%;
+}
+
+/* traces a loose rectangular loop: right, down, left, back to start */
+@keyframes glide {
+	0%   { translate: 0 0; }
+	25%  { translate: var(--dx) 0; }
+	50%  { translate: var(--dx) var(--dy); }
+	75%  { translate: 0 var(--dy); }
+	100% { translate: 0 0; }
+}
+
+@keyframes spin {
+	from { rotate: 0deg; }
+	to   { rotate: 360deg; }
+}
+
+.top-bar,
+.main-content,
+.copyright-bar {
+	position: relative;
+	z-index: 1;
+}
+
+h1 {
+	font-size: clamp(2rem, 5vw, 3.5rem);
+}
+h2 {
+	font-size: clamp(1.6rem, 4vw, 2.75rem);
+}
+h3 {
+	font-size: clamp(1.2rem, 3vw, 1.5rem);
+}
+
+* {
+	box-sizing: border-box;
+  }
+
+  html,
+  body {
+	margin: 0;
+	padding: 0;
+  }
+
+  html {
+	min-height: 100%;
+	background-color: var(--color-orange); /* bottom color of your gradient */
+  }
+
+  body {
+	background-image: linear-gradient(180deg, var(--color-blue), var(--color-orange));
+	background-attachment: fixed;
+	background-repeat: no-repeat;
+	min-height: 100vh;
+	min-height: 100dvh; /* better on mobile — see below */
+	font-family: "Montserrat";
+  }
+.top-bar {
+	position: fixed;
+	top:0;
+	left:0;
+	width: 100%;
+	height: 80px;
+	background-color: var(--color-navy);
+	color: var(--color-white);
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	padding: 20px;
+	box-sizing: border-box;
+	box-shadow: 0 2px 12px rgba(0, 0, 0, 0.3);
+	z-index: 100;
+}
+.logo {
+	font-weight: bold;
+	font-size: 35px;
+	font-family: "Dancing Script";
+	flex: 0 0 45%;        /* logo always gets ~45% of the top bar */
+	max-width: 45%;
+	min-width: 0;         /* lets flex children shrink (easy to forget!) */
+	overflow: hidden;
+	color: white;
+  }
+  
+  .logo a {
+	display: block;
+	white-space: nowrap;  /* one line — text shrinks instead of wrapping */
+	text-decoration: none;
+	color: white;
+  }
+.nav-links a {
+	color: var(--color-white);
+	text-decoration: none;
+	margin-left: 40px;
+	font-size: 1.1rem;
+	transition: color var(--transition-fast);
+}
+
+.nav-links a:hover {
+	text-decoration: underline;
+}
+#secret-link {
+	color: var(--color-navy);
+}
+.melvin-popup {
+	display: block;
+	margin: auto;
+}
+body {
+	display: flex;
+	flex-direction: column;
+	min-height: 100vh;
+	min-height: 100dvh;
+	/* keep your gradient here */
+  }
+  
+  .main-content {
+	flex: 1;           /* grows to fill space above footer */
+	margin-top: 80px;  /* room for fixed nav — tune to your .top-bar height */
+	padding-top: 5px;
+  }
+.mid-text {
+	text-align: center;
+}
+.bigwarning {
+	color: red;
+	text-align: center;
+	font-weight: bold;
+	font-family: "Courier New";
+	-webkit-text-stroke: 1px black;
+}
+.mid-image {
+	display: block;
+	margin: auto;
+	border: thick double black;
+}
+.copyright-bar {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background-color: #222;
+	color: #fff;
+	width: 100%;
+	min-height: 50px;   /* min-height instead of fixed height */
+	padding: 12px 16px;
+	box-shadow: 0 -2px 12px rgba(0, 0, 0, 0.3);
+  }
+  
+  .copyright-bar p {
+	margin: 0;          /* removes default <p> spacing */
+  }
+.title-text {
+	text-wrap: balance;
+	font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+	background: rgba(0, 0, 0, 0.15);
+	border-radius: var(--radius);
+	padding: var(--space-sm) var(--space-md);
+	font-size: clamp(1.8rem, 5vw, 3.25rem);
+}
+.blog-container {
+	padding: 0 24px 24px;
+	max-width: 90%;
+	width: 1600px;
+	margin: 0 auto;
+  }
+  
+  .blog-entry {
+	display: flex;
+	flex-direction: column;   /* stack header on top, desc below */
+	min-height: 160px;        /* gives "top/bottom half" something to split */
+	margin-bottom: 16px;
+	padding: 16px;
+	background-color: var(--color-panel);
+	border-radius: var(--radius);
+	box-shadow: var(--shadow-card);
+	transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+  }
+
+  .blog-entry:hover {
+	transform: translateY(-4px);
+	box-shadow: var(--shadow-card-hover);
+  }
+  
+  .blog-entry-header {
+	display: flex;
+	justify-content: space-between;  /* title left, date right */
+	align-items: flex-start;
+	flex: 1;                         /* top half */
+  }
+  
+  .blog-title {
+	margin: 0;
+	text-align: left;
+	font-size: clamp(1.4rem, 3vw, 2rem);
+  }
+
+  .blog-date {
+	margin: 0;
+	text-align: right;
+	opacity: 0.85;
+	font-size: clamp(1rem, 1.5vw, 1.2rem);
+  }
+
+  .blog-desc {
+	margin: 0;
+	padding-top: 10px;
+	flex: 1;                         /* bottom half */
+	font-size: clamp(1rem, 1.6vw, 1.15rem);
+	line-height: 1.5;
+  }
+  .blog-desc p {
+	margin: 0;   /* the rendered Markdown body wraps text in its own <p> */
+  }
+
+  .blog-hidden-desc {
+	background-color: var(--color-panel-strong);
+	border-radius: var(--radius);
+	color: rgba(0, 0, 0, 0);
+	padding: 8px;
+	margin: 0;
+	margin-top: 10px;
+	transition: background-color 0.5s ease;
+	font-size: clamp(1rem, 1.6vw, 1.15rem);
+  }
+  .blog-hidden-desc:hover {
+	background-color:rgba(0, 0, 0, 0.1);
+	color: rgba(0, 0, 0, 1);
+  }
+.blog-img {
+	display: block;
+	border-radius: 8px;
+	padding: 8px;
+	margin: 0 auto;
+	margin-top: 10px;
+	width: 400px;
+	max-width: 30%;
+	border-radius: 8px;
+  }
+.page-desc-container {
+	padding: 0 24px 24px;
+	max-width: 90%;
+	margin: 0 auto;
+	font-size: clamp(1.1rem, 2.5vw, 1.8rem);
+}
+.indent {
+	text-indent: 40px;
+}
+.secret-link {
+	color: rgb(83, 83, 83);
+	text-decoration: none;
+	font-size: 15pt;
+}
+.my-links-container {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	justify-content: space-evenly;
+	min-height: 300px;
+	margin: 0 auto;
+	margin-bottom: 30px;
+	padding-bottom: 16px;
+	background-color: var(--color-panel-soft);
+	padding: 16px;
+	width: 85%;
+	border-radius: 16px;
+}
+.my-links-container-2 {
+	display: flex;
+	flex-direction: row-reverse;
+	flex-wrap: wrap;
+	justify-content: space-evenly;
+	min-height: 300px;
+	margin: 0 auto;
+	margin-bottom: 16px;
+	padding-bottom: 16px;
+	background-color: var(--color-panel-soft);
+	padding: 16px;
+	width: 85%;
+	border-radius: 16px;
+}
+@keyframes fadeInUp {
+	from {
+		opacity: 0;
+		translate: 0 16px;
+	}
+	to {
+		opacity: 1;
+		translate: 0 0;
+	}
+}
+
+.my-link,
+.blog-entry,
+.credit-group {
+	animation: fadeInUp 0.6s ease both;
+}
+
+/* stagger each card in a row so they don't all pop in at once */
+.my-link:nth-child(2) { animation-delay: 0.1s; }
+.my-link:nth-child(3) { animation-delay: 0.2s; }
+.blog-entry:nth-child(2) { animation-delay: 0.1s; }
+.blog-entry:nth-child(3) { animation-delay: 0.2s; }
+
+@media (prefers-reduced-motion: reduce) {
+	.bg-shape,
+	.my-link,
+	.blog-entry,
+	.credit-group {
+		animation: none;
+	}
+}
+
+.my-link {
+	order: 1;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	background-color: var(--color-panel);
+	padding: 0px 16px 24px 16px;
+	width: 20%;
+	max-width: 40%;
+	border-radius: var(--radius);
+	margin: 0;
+	box-shadow: var(--shadow-card);
+	transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.my-link:hover {
+	transform: translateY(-6px);
+	box-shadow: var(--shadow-card-hover);
+}
+.link-image {
+	display: block;
+	margin: 0 auto;
+	max-width: 70%;
+	border-radius: 8px;
+	align-self: center;
+	transition: transform var(--transition-fast);
+}
+.link-image:hover {
+	transform: scale(1.05);
+}
+.my-links-title {
+	order: 0;
+	align-self: center;
+}
+.my-links-desc {
+	font-size: clamp(1rem, 2vw, 1.4rem);
+}
+.text-left {
+	text-align: left;
+}
+.sub-heading {
+	background-color: var(--color-panel-soft);
+	border-radius: var(--radius);
+	padding: var(--space-xs) var(--space-sm);
+	font-size: clamp(1.5rem, 4vw, 2.5rem);
+}
+@media (max-width: 768px) {
+	.blog-entry-header {
+		flex-direction: column;
+		gap: 4px;
+	  }
+	  .blog-date {
+		text-align: left;
+	  }
+	.top-bar {
+	  height: auto;
+	  min-height: 60px;
+	  padding: 12px 16px;
+	  flex-wrap: wrap;
+	  gap: 8px;
+	}
+  
+	.logo {
+	  flex: 1 1 100%;      /* logo full width on its own row */
+	  max-width: 100%;
+	  font-size: 28px;
+	  text-align: center;
+	}
+  
+	.nav-links {
+	  flex: 1 1 100%;
+	  display: flex;
+	  justify-content: center;
+	  gap: 16px;
+	}
+  
+	.nav-links a {
+	  margin-left: 0;      /* remove desktop side spacing */
+	  font-size: 1rem;
+	}
+  
+	.main-content {
+	  margin-top: 100px;   /* more room if nav wraps to 2 rows */
+	  padding: 0 16px;
+	}
+  
+	.mid-image {
+	  width: 90%;
+	}
+  
+	.bigwarning {
+	  font-size: 0.9rem;
+	  padding: 0 8px;
+	}
+  }
+.credits-container {
+	padding: 0 24px 24px;
+	max-width: 90%;
+	width: 900px;
+	margin: 0 auto;
+	display: flex;
+	flex-direction: column;
+	gap: 16px;
+}
+
+.credit-group {
+	background-color: var(--color-panel);
+	border-radius: var(--radius);
+	box-shadow: var(--shadow-card);
+	padding: 16px 24px;
+}
+
+.credit-group ul {
+	margin: 0;
+	padding-left: 20px;
+}
+
+.credit-group a {
+	color: inherit;
+}

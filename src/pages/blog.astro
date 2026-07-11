@@ -1,0 +1,26 @@
+---
+import { getCollection, render } from "astro:content";
+import Layout from "../layouts/Layout.astro";
+import BlogEntry from "../components/BlogEntry.astro";
+
+const allPosts = await getCollection("blog");
+allPosts.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+
+const posts = await Promise.all(
+	allPosts.map(async (post) => {
+		const { Content } = await render(post);
+		return { post, Content };
+	})
+);
+---
+<Layout title="BombDotCom">
+	<h1 class="mid-text title-text"> Posts.</h1>
+	<div class="page-desc-container">
+		<p class="indent">
+			Welcome to the posts page! Here I will post updates in my life, any projects I'm working on (including this site), and other random things. You can hover over the hidden desc to uncover what it says.
+		</p>
+	</div>
+	<div class="blog-container">
+		{posts.map(({ post, Content }) => <BlogEntry post={post} Content={Content} />)}
+	</div>
+</Layout>

@@ -1,0 +1,13 @@
+---
+const { showSecretLink = false } = Astro.props;
+---
+<div class="top-bar">
+	<div class="logo"><a href="/">the site of bomb</a></div>
+	<div class="nav-links">
+		{showSecretLink && <a href="/secret" id="secret-link">.</a>}
+		<a href="/">Home</a>
+		<a href="/blog">Posts</a>
+		<a href="/portfolio">Portfolio</a>
+		<a href="/credits">Credits</a>
+	</div>
+</div>
