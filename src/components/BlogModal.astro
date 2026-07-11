@@ -1,0 +1,28 @@
+---
+// The full-post overlay, one per blog post. Hidden by default (CSS sets
+// display:none); blog-modal.js adds the "is-open" class when its matching card
+// is clicked. The id here must match the BlogCard's data-modal value.
+const { post, Content, id } = Astro.props;
+const { title, date, hasHidden, hidden, hasImg, imgSrc, imgAlt } = post.data;
+
+const formattedDate = date.toLocaleString("en-US", {
+	year: "numeric",
+	month: "long",
+	day: "numeric",
+	hour: "numeric",
+	minute: "2-digit",
+	timeZone: "UTC",
+});
+---
+<div class="blog-modal" id={id}>
+	<div class="blog-modal-box">
+		<button class="blog-modal-close" aria-label="Close" type="button">×</button>
+		<h2 class="blog-modal-title">{title}</h2>
+		<p class="blog-modal-date">{formattedDate}</p>
+		<div class="blog-modal-body">
+			<Content />
+			{hasImg && <img src={imgSrc} alt={imgAlt} />}
+		</div>
+		{hasHidden && <p class="blog-modal-hidden">{hidden}</p>}
+	</div>
+</div>

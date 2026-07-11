@@ -1,0 +1,15 @@
+---
+// The big animated logo + welcome message that sits at the very top of the home
+// page. We split the logo text into individual letters so each one can bounce
+// on its own, slightly after the one before it (a "wave").
+const logoText = "bomb.com";
+const letters = logoText.split(""); // ["b","o","m","b",".","c","o","m"]
+---
+<section class="hero metallic checker">
+	<h1 class="hero-logo" aria-label={logoText}>
+		{letters.map((letter, index) => (
+			<span style={`--i: ${index}`} aria-hidden="true">{letter}</span>
+		))}
+	</h1>
+	<p class="hero-welcome">Welcome to my corner of the internet.</p>
+</section>

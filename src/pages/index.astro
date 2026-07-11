@@ -1,27 +1,56 @@
 ---
+import { getCollection, render } from "astro:content";
 import Layout from "../layouts/Layout.astro";
+import Hero from "../components/Hero.astro";
 import LinkCard from "../components/LinkCard.astro";
+import ArtMusic from "../components/ArtMusic.astro";
+import BlogCard from "../components/BlogCard.astro";
+import BlogModal from "../components/BlogModal.astro";
+import ContactLinks from "../components/ContactLinks.astro";
+
+// Load every blog post, newest first, and render each one's Markdown body so the
+// modal can show the full content. Same pattern the old /blog page used.
+const allPosts = await getCollection("blog");
+allPosts.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+
+const posts = await Promise.all(
+	allPosts.map(async (post) => {
+		const { Content } = await render(post);
+		return { post, Content, id: `post-${post.id}` };
+	})
+);
+
+// Decide each card's mosaic size by its position: newest is large, then the rest
+// alternate medium / small to get that abstract, uneven look.
+function sizeFor(index) {
+	if (index === 0) return "large";
+	return index % 2 === 1 ? "medium" : "small";
+}
 ---
-<Layout title="BombDotCom" showSecretLink={true}>
-	<h1 class="mid-text title-text">I'm working on ts come back later.</h1>
-	<h2 class="mid-text sub-heading">About Me</h2>
-	<div class="page-desc-container">
-		<p class="indent">Hello! I'm NotThatBombGuy, but I usually just go by Bomb. I was bored one day and decided that I wanted to make a website
-			about me instead of shoving everything into a Discord Bio. Some of my main hobbies include: </p>
-		<ul>
-			<li>Gaming</li>
-			<li>Programming</li>
-			<li>Art</li>
-			<li>Music</li>
-			<li>OneWheeling</li>
-			<li>Fishing</li>
-		</ul>
-		<p class="indent">I'm too lazy to finish this rn so I'll just leave it here.</p>
-	</div>
+<Layout title="BombDotCom" showSecretLink={true} bareLayout={true}>
+	<Hero />
+
+	<!-- Middle band: uses the body's royal-blue gradient -->
+	<section class="section">
+		<h2 class="section-heading">About <span class="accent">Me</span></h2>
+		<div class="page-desc-container">
+			<p class="indent">Hello! I'm NotThatBombGuy, but I usually just go by Bomb. I was bored one day and decided that I wanted to make a website
+				about me instead of shoving everything into a Discord Bio. Some of my main hobbies include: </p>
+			<ul>
+				<li>Gaming</li>
+				<li>Programming</li>
+				<li>Art</li>
+				<li>Music</li>
+				<li>OneWheeling</li>
+				<li>Fishing</li>
+			</ul>
+			<p class="indent">I'm too lazy to finish this rn so I'll just leave it here.</p>
+		</div>
+	</section>
 
 	<div class="my-links-container">
 		<div class="my-links-title">
-			<h2>Games I Play</h2>
+			<h2><span class="accent">Games</span> I Play</h2>
 			<p class="my-links-desc">Like I said before, I'm a huge gamer.<br> Here are a few of my favorite<br> games that I've played<br> over the years! (You can <br>click on the images to get a link<br> to the game.)</p>
 		</div>
 		<LinkCard title="Deltarune" href="https://deltarune.com" imgSrc="/images/deltarune.gif">
@@ -40,7 +69,7 @@ import LinkCard from "../components/LinkCard.astro";
 
 	<div class="my-links-container-2">
 		<div class="my-links-title">
-			<h2 class="text-left">Things I Develop</h2>
+			<h2 class="text-left">Things I <span class="accent">Develop</span></h2>
 			<p class="my-links-desc text-left">Here is where I unleash<br> my creativity! I work on many <br>different projects, and a few of<br> their links are listed here.</p>
 		</div>
 		<LinkCard title="Q_C0UNT's Towers of Oblivion" href="https://discord.gg/KeYhVhD67B" imgSrc="/images/qtoo.png">
@@ -53,9 +82,29 @@ import LinkCard from "../components/LinkCard.astro";
 		</LinkCard>
 		<LinkCard title="YouTube Channel" href="https://www.youtube.com/@notthatbombguy" imgSrc="/images/yt.jpg">
 			I've always been interested in Video Production, so here you can find my content! I mainly post about EToH and then I try to stream once a week to make up for
-			my horrific upload schedual. I'll also post trailers for games I develope or just random things that I feel like talking about.
+			my horrific upload schedual. I'll also post trailers for games I develop or just random things that I feel like talking about.
 		</LinkCard>
 	</div>
+
+	<ArtMusic />
+
+	<!-- Blog + Contact wrapper (Container A): metallic checkerboard -->
+	<section class="blog-contact metallic checker" id="blog">
+		<h2 class="section-heading">Posts</h2>
+		<div class="blog-mosaic">
+			{posts.map(({ post, id }, index) => (
+				<BlogCard post={post} id={id} size={sizeFor(index)} />
+			))}
+		</div>
+
+		<ContactLinks />
+	</section>
+
+	<!-- Hidden full-post modals, one per post -->
+	{posts.map(({ post, Content, id }) => (
+		<BlogModal post={post} Content={Content} id={id} />
+	))}
 </Layout>
 
 <script is:inline src="/main.js"></script>
+<script is:inline src="/blog-modal.js"></script>
