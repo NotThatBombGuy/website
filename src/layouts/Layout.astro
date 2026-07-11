@@ -3,7 +3,7 @@ import Nav from "../components/Nav.astro";
 import Footer from "../components/Footer.astro";
 import "../styles/global.css";
 
-const { title = "BombDotCom", showSecretLink = false } = Astro.props;
+const { title = "BombDotCom", showSecretLink = false, bareLayout = false } = Astro.props;
 ---
 <!DOCTYPE html>
 <html lang="en">
@@ -15,10 +15,15 @@ const { title = "BombDotCom", showSecretLink = false } = Astro.props;
 	</head>
 	<body>
 		<Nav showSecretLink={showSecretLink} />
-		<div class="main-content">
+		{bareLayout ? (
 			<slot />
-		</div>
+		) : (
+			<div class="main-content">
+				<slot />
+			</div>
+		)}
 		<Footer />
 		<script is:inline src="/background.js"></script>
+		<script is:inline src="/metallic.js"></script>
 	</body>
 </html>

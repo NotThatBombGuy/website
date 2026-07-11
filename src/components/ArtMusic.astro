@@ -1,0 +1,54 @@
+---
+// Art & Music showcase — paragraph on the left, a real image gallery + real
+// <audio> players on the right.
+//
+// To add your own art: drop image files into public/images/art/ and list
+// their filenames below (in the artPieces array).
+//
+// To add your own music: drop mp3 files into public/audio/music/ and list
+// their filenames below (in the musicTracks array).
+const artPieces = [
+	{ src: "/images/art/femboy-super.jpg", alt: "Art piece 1" },
+	{ src: "/images/art/noli_bro.jpg", alt: "Art piece 2" },
+	{ src: "/images/art/LuduwoFace2.jpg", alt: "Art piece 3" },
+	{ src: "/images/art/glaggle-reach.png", alt: "Art piece 4" },
+];
+
+const musicTracks = [
+	{ src: "/audio/music/kindofdecent.mp3", title: "Kind Of Decent" },
+	{ src: "/audio/music/the-glee-of-water-bottles.mp3", title: "The Glee of Water Bottles" },
+];
+---
+<section class="section">
+	<h2 class="section-heading"><span class="accent">Art</span> &amp; <span class="accent">Music</span></h2>
+	<div class="art-music">
+		<div class="art-music-text">
+			<p>
+				Art and music production have always been an interest of mine. Although I'm not very good at it,
+				it is one of my favorite things to do in my pasttime!
+			</p>
+			<p>
+				Im especially fond of music production. One of my main goals is to reach the level of Toby Fox.
+			</p>
+		</div>
+		<div class="art-music-showcase">
+			{artPieces.map((art) => (
+				<img class="art-piece" src={art.src} alt={art.alt} loading="lazy" />
+			))}
+			{musicTracks.map((track) => (
+				<div class="music-player">
+					<p class="music-player-title">{track.title}</p>
+					<audio controls preload="none">
+						<source src={track.src} type="audio/mpeg" />
+						Your browser doesn't support embedded audio — here's a
+						<a href={track.src}>direct link</a> instead.
+					</audio>
+				</div>
+			))}
+		</div>
+	</div>
+	<p class="license-tag">
+		Art &amp; Music licensed under{" "}
+		<a href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" rel="noopener">CC BY-NC-ND 4.0</a>
+	</p>
+</section>

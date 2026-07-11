@@ -1,6 +1,6 @@
 ---
 title: "Astro, Credits, and UI"
-date: 2026-07-11
+date: 2026-07-11T8:45:00Z
 hasHidden: false
 hidden: ""
 hasImg: false

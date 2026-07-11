@@ -1,0 +1,46 @@
+---
+// A minimized blog post card for the mosaic. Shows just the title, date, a short
+// snippet, and the image (if any). Clicking it opens the matching modal — the
+// data-modal attribute links this card to its BlogModal by a shared id.
+const { post, id, size } = Astro.props;
+const { title, date, hasHidden, hidden, hasImg, imgSrc, imgAlt } = post.data;
+
+// toLocaleString (not toLocaleDateString) so we can format the date AND the
+// time together in one call. Always in UTC — this runs once at build time on
+// the server, not live in each visitor's browser, so using the visitor's local
+// time here would actually just bake in whatever timezone the site happened to
+// be built in.
+const formattedDate = date.toLocaleString("en-US", {
+	year: "2-digit",
+	month: "numeric",
+	day: "numeric",
+	hour: "numeric",
+	minute: "2-digit",
+	timeZone: "UTC",
+});
+
+// a text preview from the post body — bigger cards have more room, so they
+// show more text instead of looking mostly empty
+const snippetLength = size === "large" ? 320 : size === "medium" ? 200 : 100;
+const rawSnippet = post.body.trim().slice(0, snippetLength) + "…";
+
+// post.body is the RAW Markdown source, so "**bold**" would otherwise show up
+// as literal asterisks in the card. escapeHtml() neutralizes any stray
+// <, >, & characters first (so they can't be mistaken for real HTML tags),
+// then the two .replace() calls turn Markdown's **bold**/*italic* syntax into
+// real <strong>/<em> tags.
+function escapeHtml(text) {
+	return text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+}
+function renderInlineMarkdown(text) {
+	return escapeHtml(text)
+		.replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>")
+		.replace(/\*(.+?)\*/g, "<em>$1</em>");
+}
+const snippet = renderInlineMarkdown(rawSnippet);
+---
+<button class={`blog-card is-${size}`} data-modal={id} type="button">
+	<h3 class="blog-card-title">{title}</h3>
+	<p class="blog-card-date">{formattedDate}</p>
+	<p class="blog-card-snippet" set:html={snippet} />
+</button>

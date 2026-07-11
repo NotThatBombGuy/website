@@ -1,42 +1,40 @@
-// creates the floating background shapes and adds them to every page that includes this script
+// Builds two fixed black columns (one on each side of the screen) filled with
+// white shapes that cycle triangle -> circle -> square and rise slowly upward
+// on a seamless loop.
 
-const shapeCount = 20;
-const shapeTypes = ["triangle", "square", "circle"];
-const bgContainer = document.createElement("div");
-bgContainer.className = "bg-shapes";
+const shapesPerColumn = 18;
+const shapeTypes = ["triangle", "circle", "square"];
+const riseDuration = 16; // seconds for one shape to travel bottom -> top
 
-// returns a random number between min and max (both inclusive-ish)
-function randomBetween(min, max) {
-  return min + Math.random() * (max - min);
+// Builds a single side column ("left" or "right") and returns the element.
+function buildColumn(side) {
+  const column = document.createElement("div");
+  column.className = `side-shapes ${side}`;
+
+  for (let i = 0; i < shapesPerColumn; i++) {
+    const type = shapeTypes[i % shapeTypes.length];
+    const shape = document.createElement("div");
+    shape.className = `side-shape shape-${type}`;
+
+    // all shapes share one size so the column reads as a tidy stream
+    shape.style.setProperty("--size", "34px");
+    shape.style.setProperty("--rise-duration", `${riseDuration}s`);
+
+    // spread the shapes evenly along the loop using negative delays, so the
+    // stream is already full on load instead of starting empty. A negative
+    // delay means "pretend this animation started N seconds ago".
+    const delay = -(riseDuration / shapesPerColumn) * i;
+    shape.style.setProperty("--delay", `${delay}s`);
+
+    column.appendChild(shape);
+  }
+
+  return column;
 }
 
-// randomBetween, but 50/50 chance of being negative — used so shapes
-// glide in different directions instead of all drifting the same way
-function randomSigned(min, max) {
-  const value = randomBetween(min, max);
-  return Math.random() < 0.5 ? -value : value;
-}
+const left = buildColumn("left");
+const right = buildColumn("right");
 
-for (let i = 1; i <= shapeCount; i++) {
-  const type = shapeTypes[(i - 1) % shapeTypes.length];
-  const shape = document.createElement("div");
-  shape.className = `bg-shape shape-${type}`;
-
-  // position and size, as percentages/pixels
-  shape.style.setProperty("--top", `${randomBetween(0, 90)}%`);
-  shape.style.setProperty("--left", `${randomBetween(0, 90)}%`);
-  shape.style.setProperty("--size", `${Math.round(randomBetween(50, 200))}px`);
-
-  // how far it glides, in viewport-width/height units so it scales with screen size
-  shape.style.setProperty("--dx", `${randomSigned(15, 35).toFixed(1)}vw`);
-  shape.style.setProperty("--dy", `${randomSigned(10, 25).toFixed(1)}vh`);
-
-  // timing, so shapes don't all move in lockstep
-  shape.style.setProperty("--glide-duration", `${Math.round(randomBetween(35, 60))}s`);
-  shape.style.setProperty("--spin-duration", `${Math.round(randomBetween(40, 70))}s`);
-
-  bgContainer.appendChild(shape);
-}
-
-// insert as the very first element in <body>, so it sits behind everything else
-document.body.insertBefore(bgContainer, document.body.firstChild);
+// add both columns as the first things in <body> so they sit behind the content
+document.body.insertBefore(right, document.body.firstChild);
+document.body.insertBefore(left, document.body.firstChild);

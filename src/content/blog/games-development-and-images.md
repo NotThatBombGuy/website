@@ -1,6 +1,6 @@
 ---
 title: "Games, Development, and Images!"
-date: 2026-07-02
+date: 2026-07-02T20:00:00Z
 hasHidden: true
 hidden: "I also added 2 more secrets on the secret page."
 hasImg: true

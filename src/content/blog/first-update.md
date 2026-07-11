@@ -1,6 +1,6 @@
 ---
 title: "First Update"
-date: 2026-07-01
+date: 2026-07-01T18:00:00Z
 hasHidden: true
 hidden: "Continuing from the updates, I also added a 'secret' page accessable through the home page somewhere. Only 4 secrets are currently added. I hope to have at least 10 by the end of this month."
 hasImg: false
